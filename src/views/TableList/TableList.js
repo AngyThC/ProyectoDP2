@@ -101,7 +101,7 @@ export default function IncidenciaTable() {
     if (!idIncidencia) return;
     try {
       const response = await axios.get(
-        `http://localhost:8000/fotografiasincidencia/ `
+        `http://localhost:8000/fotografiasincidencia/${idIncidencia}` // Cambia esta línea para incluir el ID de la incidencia
       );
       setFotografias(response.data);
       setOpenFotografias(true);
@@ -216,7 +216,7 @@ export default function IncidenciaTable() {
                 fotografias.map((foto) => (
                   <div key={foto.id}>
                     <img
-                      src={`data:image/png;base64,${foto.foto}`}
+                      src={`data:image/png;base64,${foto.foto}`} // Asegúrate de que 'foto' sea la cadena base64
                       alt={`Fotografía ${foto.id}`}
                       className={classes.image}
                     />
