@@ -15,6 +15,9 @@ import Icon from "@material-ui/core/Icon";
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
+import universidadMesoamericanaCover from "assets/img/universidad_mesoamericana_sede_quetzaltenango_cover.jpg"; // Importa la imagen
+import logoUmes from "assets/img/logo-gries-1 1.png"; // Importa la imagen
+
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -22,11 +25,14 @@ const useStyles = makeStyles(styles);
 export default function Sidebar(props) {
   const classes = useStyles();
   let location = useLocation();
-  // verifies if routeName is the one active (in browser input)
+  
+  // Verifica si el nombre de la ruta está activo
   function activeRoute(routeName) {
     return location.pathname === routeName;
   }
-  const { color, logo, image, logoText, routes } = props;
+  
+  const { color, logo, logoText, routes } = props;
+  
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -81,22 +87,20 @@ export default function Sidebar(props) {
       })}
     </List>
   );
+  
   var brand = (
     <div className={classes.logo}>
-      <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
-        className={classNames(classes.logoLink, {
-          [classes.logoLinkRTL]: props.rtlActive,
-        })}
-        target="_blank"
-      >
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        {logoText}
-      </a>
+      <div className={classes.logoImage} style={{ height: "80px", width: "80px" }}> {/* Ajusta el tamaño aquí */}
+        <img 
+          src={logoUmes} 
+          alt="Universidad Mesoamericana" 
+          className={classes.img} 
+          style={{ width: "80%", height: "auto" }} // Mantiene la proporción
+        />
+      </div>
     </div>
   );
+  
   return (
     <div>
       <Hidden mdUp implementation="css">
@@ -111,7 +115,7 @@ export default function Sidebar(props) {
           }}
           onClose={props.handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, // Mejor rendimiento al abrir en móvil.
           }}
         >
           {brand}
@@ -119,12 +123,10 @@ export default function Sidebar(props) {
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
           </div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
+          <div
+            className={classes.background}
+            style={{ backgroundImage: `url(${universidadMesoamericanaCover})` }}
+          />
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
@@ -140,12 +142,10 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
-          {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
-            />
-          ) : null}
+          <div
+            className={classes.background}
+            style={{ backgroundImage: `url(${universidadMesoamericanaCover})` }}
+          />
         </Drawer>
       </Hidden>
     </div>
@@ -157,7 +157,6 @@ Sidebar.propTypes = {
   handleDrawerToggle: PropTypes.func,
   bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   logo: PropTypes.string,
-  image: PropTypes.string,
   logoText: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object),
   open: PropTypes.bool,
